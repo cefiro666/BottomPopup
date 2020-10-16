@@ -45,6 +45,7 @@ final class BottomPopupDismissInteractionController: UIPercentDrivenInteractiveT
     private func preparePanGesture(in view: UIView?) {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
         presentedViewController?.view?.addGestureRecognizer(panGesture)
+        panGesture.delegate = self
     }
     
     @objc private func handlePanGesture(_ pan: UIPanGestureRecognizer) {
@@ -65,4 +66,13 @@ final class BottomPopupDismissInteractionController: UIPercentDrivenInteractiveT
             finishAnimation(withVelocity: velocity)
         }
     }
+}
+
+extension BottomPopupDismissInteractionController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+ 
 }
